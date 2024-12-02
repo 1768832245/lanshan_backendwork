@@ -9,7 +9,9 @@ import (
 )
 
 func InitMysql() *gorm.DB {
-	dsn := "root:kq1768832245@tcp(127.0.0.1:3306)/BM7?charset=utf8&parseTime=True&loc=Local"
+
+	//密码还是不给看哼哼~
+	dsn := "root:*******@tcp(127.0.0.1:3306)/BM7?charset=utf8&parseTime=True&loc=Local"
 
 	var mysqlLogger logger.Interface
 	mysqlLogger = logger.Default.LogMode(logger.Error)
