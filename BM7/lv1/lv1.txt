@@ -1,0 +1,46 @@
+1:SELECT COUNT(*) AS employee_count -- count计算符合where的数量，作为别名显示
+FROM employees -- 表名
+WHERE hire_date >= CURDATE() - INTERVAL 1 YEAR; -- 条件（现在减去过去一年）
+
+2：SELECT department, AVG(salary) AS average_salary -- 查询department（分组依据），平均数（别名）
+  FROM employees -- 表名
+  GROUP BY department; -- 分组
+
+3：SELECT name, hire_date, salary -- 三个字段
+  FROM employees -- 表名
+  WHERE hire_date <= CURDATE() - INTERVAL 10 YEAR -- 同1
+  AND salary > 50000;
+
+4：UPDATE employees SET salary = salary * 0.9 -- 更新
+  WHERE status = 'on_leave'; -- 条件
+
+5：SELECT name, department, salary -- 查询
+  FROM employees -- 表名
+  WHERE salary = (SELECT MAX(salary) FROM employees WHERE department = employees.department);--条件薪资=最高薪资的人
+
+6：SELECT name
+  FROM employees
+  GROUP BY name
+  HAVING COUNT(DISTINCT department) > 1; --条件（id会变，名字查询）
+
+7：DELETE FROM employees
+  WHERE status = 'inactive'; --略，较简单
+
+8：SELECT DISTINCT manager_id --查询不重复的id
+  FROM employees
+  WHERE manager_id IS NOT NULL; --非空
+
+9：SELECT id, name, updated_at
+  FROM employees
+  WHERE updated_at >= CURDATE() - INTERVAL 30 DAY; --条件同1
+
+10：-- 查询经理
+   SELECT name AS manager_name
+   FROM employees
+   WHERE id = (SELECT manager_id FROM employees WHERE id = 2);  -- 先查询员工的经理id，在作为id找经理
+
+   -- 查询下属
+   SELECT name AS worker_name
+   FROM employees
+   WHERE manager_id = 1;
+
