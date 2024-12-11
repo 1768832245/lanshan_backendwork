@@ -15,17 +15,17 @@ func PurchaseStock(userid int) bool {
 	}
 
 	if !LS {
-		fmt.Println("已被占据")
 		return false
 	}
 	if models.Stock > 0 {
 		models.Stock--
 		fmt.Println("success stock:", models.Stock)
+		fmt.Printf("userid:%d,抢到了货物\n", userid)
 	} else {
-		fmt.Println("stock < 0!")
+		models.Rdb.Del(models.Ctx, lock)
+		return false
 	}
 
 	models.Rdb.Del(models.Ctx, lock)
-	fmt.Println("已完成释放锁")
 	return true
 }

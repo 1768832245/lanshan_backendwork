@@ -9,7 +9,7 @@ import (
 func main() {
 	dao.InitRdb()
 
-	for i := 1; i <= 5; i++ {
+	for i := 1; i <= 100; i++ {
 		go api.PurchaseStock(i)
 	}
 
